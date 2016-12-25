@@ -7,6 +7,7 @@ import sled.timer.address.model.Person;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javafx.application.Platform;
@@ -29,8 +30,8 @@ public class PersonOverviewController {
 
 	@FXML
 	private TableView<Person> personTable;
-//	@FXML
-//	private TableColumn<Person, String> firstNameColumn;
+	//	@FXML
+	//	private TableColumn<Person, String> firstNameColumn;
 	@FXML
 	private TableColumn<Person, String> time;
 	@FXML
@@ -41,18 +42,27 @@ public class PersonOverviewController {
 	private Label firstNameLabel;
 	@FXML
 	private Label timer; 
+	@FXML
+	private Label racer1; 
+	@FXML 
+	private Label racer2; 
+	@FXML
+	private Label racer3; 
+	@FXML
+	private Label racer4; 
 
 	StopWatch stopWatch; 
-
 	int number = 0; 
-	
+	ArrayList<Integer> numbers = new ArrayList<Integer>(); 
 	int startCount = 0; 
-	
+
 	Person update; 
 
 	boolean paused = false; 
 	// Reference to the main application.
 	private MainApp mainApp;
+
+	int updateCount = 1; 
 
 	public PersonOverviewController() {
 		stopWatch = new StopWatch(this); 
@@ -68,9 +78,6 @@ public class PersonOverviewController {
 			paused = false; 
 		}
 		startCount++; 
-
-
-
 	}
 
 	@FXML
@@ -79,8 +86,6 @@ public class PersonOverviewController {
 		System.out.println("paused");
 		System.out.println(timer.getText());
 		stopWatch.pauseTimer(); 
-
-
 	}
 
 	@FXML
@@ -90,7 +95,11 @@ public class PersonOverviewController {
 			stopWatch.stopTimer();
 			timer.setText("00" + ":" + "00" + "." + "00" );
 			startCount = 0; 
-			
+			updateCount = 1; 
+			racer1.setText("Racer 1 time: ");
+			racer2.setText("Racer 2 time: ");
+			racer3.setText("Racer 3 time: ");
+			racer4.setText("Racer 4 time: ");
 		}
 	}
 
@@ -119,8 +128,8 @@ public class PersonOverviewController {
 	@FXML
 	private void initialize() {
 		// Initialize the person table with the two columns.
-//		firstNameColumn.setCellValueFactory(
-//				cellData -> cellData.getValue().firstNameProperty());
+		//		firstNameColumn.setCellValueFactory(
+		//				cellData -> cellData.getValue().firstNameProperty());
 		totalTime.setCellValueFactory(
 				cellData -> cellData.getValue().totalTime());
 		time.setCellValueFactory(
@@ -159,7 +168,7 @@ public class PersonOverviewController {
 	}
 	@FXML
 	private void handleNewPerson() {
-		System.out.println("new");
+		//System.out.println("new");
 		Person tempPerson = new Person();
 		boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
 		if (okClicked) {
@@ -167,14 +176,10 @@ public class PersonOverviewController {
 		}
 	}
 
-	/**
-	 * Called when the user clicks the edit button. Opens a dialog to edit
-	 * details for the selected person.
-	 */
 	@FXML
 	private void handleEditPerson() {
 		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
-		System.out.println("hi");
+		//System.out.println("hi");
 		if (selectedPerson != null) {
 			boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
 			if (okClicked) {
@@ -193,42 +198,93 @@ public class PersonOverviewController {
 		}
 	}
 	@FXML
-	private void handleUpdateTime() throws ParseException{
+	private void updateTimeTesting(){
 		String endTime = timer.getText(); 
-		number = mainApp.showUpdateTimeDialog(); 
+		if(updateCount == 1){
+			racer1.setText("Racer 1 time: " + endTime);
+		}
+		if(updateCount == 2){
+			racer2.setText("Racer 2 time: " + endTime);
+		}
+		if(updateCount == 3){
+			racer3.setText("Racer 3 time: " + endTime);
+		}
+		if(updateCount == 4){
+			racer4.setText("Racer 4 time: " + endTime); 
+		}
+		updateCount++; 
+	}
+	@FXML
+	private void handleCalculateTime() throws ParseException{
+		numbers = mainApp.showUpdateTimeDialog(); 
+		String endTime1 = racer1.getText().substring(14); 
+		System.out.println(endTime1);
+		String endTime2 = racer2.getText().substring(14); 
+		String endTime3 = racer3.getText().substring(14); 
+		String endTime4 = racer4.getText().substring(14); 
+		//System.out.println(getPerson(0) == null);
+		calculateTime(getPerson(0), endTime1); 
+		calculateTime(getPerson(1), endTime2); 
+		calculateTime(getPerson(2), endTime3); 
+		calculateTime(getPerson(3), endTime4); 
+
+
 		//System.out.println("asdf" + number);
-		for(int i = 0; i < mainApp.getPersonData().size(); i++){
-			if(mainApp.getPersonData().get(i).getNumber() == number){
-				update = mainApp.getPersonData().get(i); 
-				break; 
+		// loop through all the numbers and check if it contains it in the numbesr 
+		// arrayList 
+		updateCount = 1; 
+		racer1.setText("Racer 1 time: ");
+		racer2.setText("Racer 2 time: ");
+		racer3.setText("Racer 3 time: ");
+		racer4.setText("Racer 4 time: ");
+
+
+
+	}
+	public Person getPerson(int i){
+
+		if(numbers.get(i) != null){
+			System.out.println("not null");
+			number = numbers.get(i); 
+			for(int j = 0; j < mainApp.getPersonData().size(); j++){
+				if(mainApp.getPersonData().get(j).getNumber() == number){
+					System.out.println("returned!");
+					update = mainApp.getPersonData().get(j); 
+					return update; 
+				}
 			}
 		}
+
+		return null; 
+	}
+	public void calculateTime(Person update, String endTime) throws ParseException{
 		String startTime  = update.getTime(); 
 		SimpleDateFormat format = new SimpleDateFormat("mm:ss.SS");
 		Date date1 = format.parse(endTime);
 		Date date2 = format.parse(startTime);
 		long diff = date1.getTime() - date2.getTime(); 
-		
+
 		long diffSeconds = diff / 1000 % 60;
 		long diffMinutes = diff / (60 * 1000) % 60;
 		System.out.println(diff);
 		String millis = Long.toString(diff);
 		millis = millis.substring(millis.length()-2);
 		System.out.println(millis.substring(millis.length()-2));
-		
+
 		System.out.println(diffSeconds + "," + diffMinutes);
 		System.out.println(startTime + ", " + endTime);
-		
-		
+
+
 		String sec = ""; 
 		String min = ""; 
-		
+
 		millis = millis.length() < 2 ? "0" + millis : millis; 
-		
+
 		sec = Long.toString(diffSeconds).length() < 2 ? "0" + diffSeconds: Long.toString(diffSeconds); 
 
 		min = Long.toString(diffMinutes).length() < 2 ? "0" +diffMinutes : Long.toString(diffMinutes); 
-		
+
 		update.setTotalTime(min + ":" + sec + "." + millis);
+		
 	}
 }

@@ -43,7 +43,12 @@
                   </ButtonBar>
                   <Button layoutX="92.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="25.0" prefWidth="46.0" text="Add..." />
                   <Button layoutX="33.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="25.0" prefWidth="46.0" text="Edit..." />
-                  <Button layoutX="145.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleUpdateTime" prefHeight="25.0" prefWidth="75.0" text="Update..." />
+                  <Button layoutX="211.0" layoutY="140.0" mnemonicParsing="false" onAction="#updateTimeTesting" prefHeight="25.0" prefWidth="75.0" text="Update..." />
+                  <Label fx:id="racer1" layoutX="28.0" layoutY="258.0" prefHeight="17.0" prefWidth="275.0" text="Racer 1 time: " AnchorPane.bottomAnchor="123.0" AnchorPane.leftAnchor="28.0" />
+                  <Label fx:id="racer2" layoutX="28.0" layoutY="286.0" prefHeight="17.0" prefWidth="275.0" text="Racer 2 time: " AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="28.0" />
+                  <Label fx:id="racer3" layoutX="28.0" layoutY="317.0" prefHeight="17.0" prefWidth="275.0" text="Racer 3 time: " AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="28.0" />
+                  <Label fx:id="racer4" layoutX="28.0" layoutY="347.0" prefHeight="17.0" prefWidth="275.0" text="Racer 4 time: " AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="28.0" />
+                  <Button layoutX="152.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleCalculateTime" text="Calculate" />
                </children>
             </AnchorPane>
         </items>
