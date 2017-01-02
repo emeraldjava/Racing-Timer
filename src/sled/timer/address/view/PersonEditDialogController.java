@@ -17,7 +17,6 @@ public class PersonEditDialogController {
 	@FXML
 	private TextField startTimer;
 
-
 	private Stage dialogStage;
 	private Person person;
 	private boolean okClicked = false;
@@ -66,9 +65,7 @@ public class PersonEditDialogController {
 	private boolean isInputValid() {
 		String errorMessage = "";
 
-//		if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-//			errorMessage += "No valid name!\n"; 
-//		}
+
 		if (raceNumber.getText() == null || raceNumber.getText().length() == 0 || !raceNumber.getText().matches("[0-9]*")) {
 			errorMessage += "No valid race number!\n"; 
 		}

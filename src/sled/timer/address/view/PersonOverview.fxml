@@ -48,7 +48,8 @@
                   <Label fx:id="racer2" layoutX="28.0" layoutY="286.0" prefHeight="17.0" prefWidth="275.0" text="Racer 2 time: " AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="28.0" />
                   <Label fx:id="racer3" layoutX="28.0" layoutY="317.0" prefHeight="17.0" prefWidth="275.0" text="Racer 3 time: " AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="28.0" />
                   <Label fx:id="racer4" layoutX="28.0" layoutY="347.0" prefHeight="17.0" prefWidth="275.0" text="Racer 4 time: " AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="28.0" />
-                  <Button layoutX="152.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleCalculateTime" text="Calculate" />
+                  <Button layoutX="146.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleCalculateTime" text="Calculate" />
+                  <Button layoutX="221.0" layoutY="187.0" mnemonicParsing="false" onAction="#saveData" prefHeight="25.0" prefWidth="65.0" text="Save" />
                </children>
             </AnchorPane>
         </items>

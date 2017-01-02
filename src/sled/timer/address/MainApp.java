@@ -120,7 +120,7 @@ public class MainApp extends Application {
             return false;
         }
     }
-    public ArrayList<Integer> showUpdateTimeDialog(){
+    public ArrayList<Integer> showUpdateTimeDialog(UpdateEndTimeController controller){
     	try{
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/UpdateEndTime.fxml"));
@@ -133,7 +133,7 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
             
-    		UpdateEndTimeController controller = loader.getController(); 
+    		controller = loader.getController(); 
     		controller.setDialogStage(dialogStage);
     		controller.setMainApp(this);
             //controller.setPerson(person);

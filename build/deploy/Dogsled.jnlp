@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Dogsled.jar" size="14911" download="eager" />
+    <jar href="Dogsled.jar" size="16019" download="eager" />
   </resources>
   <jfx:javafx-desc  width="0" height="0" main-class="sled.timer.address.MainApp"  name="RaceTimer" />
   <update check="background"/>

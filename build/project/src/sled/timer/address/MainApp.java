@@ -1,5 +1,6 @@
 package sled.timer.address;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import sled.timer.address.MainApp;
 import sled.timer.address.view.PersonEditDialogController;
@@ -119,7 +120,7 @@ public class MainApp extends Application {
             return false;
         }
     }
-    public int showUpdateTimeDialog(){
+    public ArrayList<Integer> showUpdateTimeDialog(){
     	try{
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/UpdateEndTime.fxml"));
@@ -137,17 +138,17 @@ public class MainApp extends Application {
     		controller.setMainApp(this);
             //controller.setPerson(person);
     		dialogStage.showAndWait();
-    		System.out.println(controller.getNumber());
-    		
-    		int number = controller.getNumber(); 
+    		System.out.println("arraylist:"+controller.getNumber());
+    		ArrayList<Integer> numbers = controller.getNumber(); 
+    		//int number = controller.getNumber(); 
     		if(controller.isOkClicked()){
-    			return number; 
+    			return numbers; 
     		}
-    		else return 0; 
+    		else return null; 
     	}
     	catch (IOException e){
     		e.printStackTrace();
-    		return -1; 
+    		return null; 
     	}
     }
 }

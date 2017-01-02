@@ -4,6 +4,9 @@ import sled.timer.address.MainApp;
 
 import sled.timer.address.model.Person;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +15,7 @@ import java.util.Date;
 
 import javafx.application.Platform;
 import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -216,22 +220,38 @@ public class PersonOverviewController {
 	}
 	@FXML
 	private void handleCalculateTime() throws ParseException{
-		numbers = mainApp.showUpdateTimeDialog(); 
+		UpdateEndTimeController controller  = new UpdateEndTimeController(); 
+		numbers = mainApp.showUpdateTimeDialog(controller); 
 		String endTime1 = racer1.getText().substring(14); 
 		System.out.println(endTime1);
 		String endTime2 = racer2.getText().substring(14); 
 		String endTime3 = racer3.getText().substring(14); 
 		String endTime4 = racer4.getText().substring(14); 
 		//System.out.println(getPerson(0) == null);
-		calculateTime(getPerson(0), endTime1); 
-		calculateTime(getPerson(1), endTime2); 
-		calculateTime(getPerson(2), endTime3); 
-		calculateTime(getPerson(3), endTime4); 
+		//System.out.println("a;skdljfasdk;fjl ==================");
+		if(getPerson(0) != null){
+			calculateTime(getPerson(0), endTime1); 
+		}
+		if(getPerson(1) != null){
 
+			calculateTime(getPerson(1), endTime2); 
+		}
+		if(getPerson(2) != null){
+
+			calculateTime(getPerson(2), endTime3); 
+		}
+		if(getPerson(3) != null){
+
+			calculateTime(getPerson(3), endTime4); 
+		}
+		//System.out.println("a;slkdfja");
 
 		//System.out.println("asdf" + number);
 		// loop through all the numbers and check if it contains it in the numbesr 
 		// arrayList 
+		if(controller.isOkClicked()){
+			System.out.println("clicked okay");
+		}
 		updateCount = 1; 
 		racer1.setText("Racer 1 time: ");
 		racer2.setText("Racer 2 time: ");
@@ -285,6 +305,23 @@ public class PersonOverviewController {
 		min = Long.toString(diffMinutes).length() < 2 ? "0" +diffMinutes : Long.toString(diffMinutes); 
 
 		update.setTotalTime(min + ":" + sec + "." + millis);
-		
+
 	}
+	@FXML
+	public void saveData() throws IOException{
+		String userHomeFolder = System.getProperty("user.home"); 
+		File textFile = new File(userHomeFolder, "racerData.txt"); 
+		BufferedWriter out = new BufferedWriter (new FileWriter(textFile));
+		try{
+			 ObservableList<Person> data = mainApp.getPersonData(); 
+			 for(int i = 0; i < data.size(); i++){
+				 Person p = data.get(i); 
+				 out.write("Race number: " + p.getNumber() + "   " + "Total time: " + p.getTotalTime() + "\n");
+				 out.newLine(); 
+			 }
+		}finally{
+			out.close(); 
+		}
+	}
+
 }

@@ -30,13 +30,6 @@ public class UpdateEndTimeController {
 
 	@FXML
 	private void initialize(){
-		//		raceNumber1.setText("Racer1"); 
-		//		raceNumber2.setText("Racer2"); 
-		//
-		//		raceNumber3.setText("Racer3"); 
-		//
-		//		raceNumber4.setText("Racer4"); 
-
 	}
 
 	public void setDialogStage(Stage dialogStage) {
@@ -54,10 +47,6 @@ public class UpdateEndTimeController {
 				racers.add(null); 
 			}
 			else {
-				
-				//System.out.println(raceNumber1.getText());
-				//System.out.println(Integer.parseInt(raceNumber1.getText()));
-				
 				racers.add(Integer.parseInt(raceNumber1.getText()));
 			}
 
@@ -78,7 +67,6 @@ public class UpdateEndTimeController {
 
 		}
 		return racers; 
-		//return number; 
 
 	}
 	public void setMainApp(MainApp mainApp) {
@@ -90,8 +78,6 @@ public class UpdateEndTimeController {
 	@FXML
 	private void handleOk() {
 		if (isInputValid()) {
-			//person.setFirstName(firstNameField.getText());
-
 			okClicked = true;
 			dialogStage.close();
 		}
@@ -99,17 +85,13 @@ public class UpdateEndTimeController {
 
 	private boolean isInputValid() {
 		String errorMessage = "";
-
-
-
 		int i = 0; 
 
 		if(mainApp.getPersonData().size() > 0){
 			while(i < mainApp.getPersonData().size() && mainApp.getPersonData().get(i).getNumber() != Integer.parseInt(raceNumber1.getText()) ){
 				i++; 
 			}
-		}
-		//		
+		}	
 		if(!(raceNumber1.getText().equals("") || !(raceNumber2.getText().equals("")) || !(raceNumber3.getText().equals("")) || !(raceNumber4.getText().equals("")))){
 
 			if(!raceNumber1.getText().matches("[0-9]*") || i == mainApp.getPersonData().size() 
@@ -127,9 +109,6 @@ public class UpdateEndTimeController {
 				return false;
 			}
 		}
-	
-
-
 		if (errorMessage.length() == 0) {
 			return true;
 		} 
